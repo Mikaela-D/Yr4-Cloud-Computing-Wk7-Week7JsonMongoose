@@ -15,14 +15,15 @@ This project demonstrates the use of Express.js with Mongoose for handling JSON 
 ## Setup
 
 1. Install dependencies:
-    ```bash
-    npm install
-    ```
+
+   ```bash
+   npm install
+   ```
 
 2. Start the server:
-    ```bash
-    npm start
-    ```
+   ```bash
+   npm start
+   ```
 
 ## Dependencies
 
