@@ -18,7 +18,7 @@ app.use("/", shopRoutes.routes);
 
 mongoose.set("strictQuery", true);
 mongoose
-  .connect("mongodb://127.0.0.1:27018/db")
+  .connect("mongodb://127.0.0.1:27017/db")
   .then((res) => {
     app.listen(3010);
   })
