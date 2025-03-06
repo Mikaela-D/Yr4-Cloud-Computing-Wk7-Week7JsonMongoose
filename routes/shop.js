@@ -22,7 +22,6 @@ router.get("/addProduct", (req, res, next) => {
     ourId: "9" + nextProductId,
     name: "widget",
     price: 3.95,
-    size: "large",
   })
     .save()
     .then((result) => {
