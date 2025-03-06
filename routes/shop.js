@@ -1,3 +1,5 @@
+// C:\Users\Mikaela\Cloud Computing\Week7JsonMongoose\Week7JsonMongoose\routes\shop.js
+
 const express = require('express');
 const router = express.Router();
 
@@ -53,27 +55,46 @@ router.post('/', (req, res, next) => {
     })
 })
 
-router.get('/getSpecificProduct', (req, res, next) => {
-  Product.find({ ourId: req.query.ourId }) // Always returns an array
-    .then(products => {
-      res.send(JSON.stringify(products[0]))
-    })
-    .catch(err => {
-      console.log('Failed to find product: ' + err)
-      res.send(JSON.stringify(err))
-    })
-})
+router.get('/getSpecificProduct', async (req, res) => {
+  try {
+    const { ourId } = req.query;
+    if (!ourId) {
+      return res.json({ success: false, message: "ourId is required" });
+    }
 
-router.post('/getSpecificProduct', (req, res, next) => {
-  Product.find({ ourId: req.body.ourId }) // Always returns an array
-    .then(products => {
-      res.json({ success: true, theProduct: products[0] })
-    })
-    .catch(err => {
-      console.log('Failed to find product: ' + err)
-      res.json({ success: false, theError: err })
-    })
-})
+    const product = await Product.findOne({ ourId });
+
+    if (!product) {
+      return res.json({ success: false, message: "Product not found" });
+    }
+
+    res.json({ success: true, theProduct: product });
+  } catch (err) {
+    console.log("Error finding product:", err);
+    res.json({ success: false, message: "Something went wrong" });
+  }
+});
+
+router.post('/getSpecificProduct', async (req, res) => {
+  try {
+    const { ourId } = req.body;
+    if (!ourId) {
+      return res.json({ success: false, message: "ourId is required" });
+    }
+
+    const product = await Product.findOne({ ourId });
+
+    if (!product) {
+      return res.json({ success: false, message: "Product not found" });
+    }
+
+    res.json({ success: true, theProduct: product });
+  } catch (err) {
+    console.log("Error finding product:", err);
+    res.json({ success: false, message: "Something went wrong" });
+  }
+});
+
 
 router.get('/updateSpecificProduct', (req, res, next) => {
   Product.find({ ourId: '1' }) // Always returns an array
